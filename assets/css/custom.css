@@ -1,0 +1,28 @@
+@media (max-width: 576px) {
+  .header-title {
+    display: none;
+    /* 当屏幕宽度小于576px时，隐藏文本 */
+  }
+
+  .username-text {
+    display: none;
+  }
+}
+
+._dash-loading {
+  color: transparent;
+  position: fixed;
+  width: calc(544px / 2.5);
+  height: calc(408px / 2.5);
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  background-image: url("/assets/imgs/加载动画.webp");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+._dash-loading::after {
+  content: '';
+}
+
