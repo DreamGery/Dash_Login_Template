@@ -17,12 +17,12 @@ from server import app
     prevent_initial_call=True
 )
 def delete_user(confirmCounts, selectedRows):
+    # 避免知道路由能够直接访问
     if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permisssion'):
         return dash.no_update
 
     if confirmCounts:
         if selectedRows:
-
             # 避免删除了超级管理员的账号
             delete_username = [
                 i.get('username') for i in selectedRows if i.get('user_role') != '超级管理员'
