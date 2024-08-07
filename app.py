@@ -2,8 +2,9 @@ import dash
 import feffery_utils_components as fuc
 from dash import dcc, html
 from dash.dependencies import Input, Output, State
+from dash.exceptions import PreventUpdate
 from flask_login import current_user
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, decode_token
 
 import views
 from config import RouterConfig
@@ -34,12 +35,6 @@ app.layout = html.Div(
             id='jwt-cookies',
             cookieKey='dash_access_token'
         ),
-
-        # 注入轮询组件 用来更新JWT 45分钟触发一次
-        dcc.Interval(
-            id='jwt-interval',
-            interval=1000 * 60 * 45
-        )
     ]
 )
 
@@ -109,16 +104,22 @@ def router(pathname, trigger):
             )
         ]
 
-# 刷新jwt令牌 45分钟一次
 @app.callback(
-    Output('jwt-cookies', 'value'),
-    Input('jwt-interval', 'n_intervals')
+    Output('jwt-cookies', 'value', allow_duplicate=True),
+    Input('url', 'trigger'),
+    prevent_initial_call=True
 )
-def refresh_access_token(n_intervals):
-    if current_user.is_authenticated:
-        return create_access_token(current_user.username)
+def get_new_access_token(trigger):
+    if current_user.is_authenticated and trigger == 'load':
+        refresh_token = auth.return_user_information(username=current_user.username).refresh_toekn
+        try:
+            decode_token(encoded_token=refresh_token)
+            return create_access_token(identity=current_user.username)
+        except Exception:
+            raise PreventUpdate
     else:
-        return dash.no_update
+        raise PreventUpdate
+
 
 
 if __name__ == "__main__":

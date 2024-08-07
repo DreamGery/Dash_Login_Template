@@ -1,6 +1,6 @@
 import feffery_antd_components as fac
 import feffery_utils_components as fuc
-from dash import html
+from dash import html, dcc
 from dash.dependencies import Component
 
 from callbacks import index_c  # noqa: F401
@@ -159,6 +159,11 @@ def render_index_content(username, permission) -> Component:
             fuc.FefferyListenScroll(id='scroll-listener'),
             fuc.FefferyResponsive(
                 id='breakpoint-listener'
+            ),
+            # 注入轮询组件 用来更新JWT 45分钟触发一次
+            dcc.Interval(
+                id='jwt-interval',
+                interval=1000 * 60 * 45
             )
         ]
     )

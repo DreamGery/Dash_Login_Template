@@ -23,6 +23,7 @@ class User(Base):
     password = Column(String(255), nullable=False)
     user_role = Column(String(255), nullable=False)
     user_permission = Column(JSON, nullable=False)
+    refresh_token = Column(String(255), nullable=True)
     
 
 class Auth:
@@ -100,7 +101,7 @@ class Auth:
                 ).one()
             )
             return user_information
-        
+    
     def return_user_table(self):
         df = pd.read_sql(
             'SELECT * FROM users', 

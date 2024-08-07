@@ -3,9 +3,9 @@ import time
 import dash
 from dash import Input, Output, State, dcc
 from flask_login import login_user
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, create_refresh_token
 
-from models.model import Auth
+from models.model import auth
 from server import User, app
 
 
@@ -47,7 +47,6 @@ def login(nClicks, value, md5Value, checked):
         md5Value (str): md5加密后的密码
         checked (bool): 是否保持登录(有效期默认7天)
     """
-    auth = Auth()
     if nClicks:
         if auth.check_users_name(username=value).get('status') == 'exist':
             if auth.check_password(username=value, password=md5Value).get('status') == 'success':
@@ -55,6 +54,8 @@ def login(nClicks, value, md5Value, checked):
                 current_user.id = value
                 login_user(current_user, remember=checked)
                 access_token = create_access_token(identity=value)
+                refresh_token = create_refresh_token(identity=value)
+                auth.change_user_information(username=value, changed_data={'refresh_token': refresh_token})
                 return [
                     None,
                     None,

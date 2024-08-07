@@ -2,7 +2,7 @@ import dash
 import feffery_antd_components as fac
 from dash import dcc
 from dash.dependencies import Input, Output
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, create_access_token, decode_token
 from flask_login import current_user, logout_user
 
 from config import RouterConfig
@@ -139,3 +139,21 @@ def render_content(pathname):
     }
 
     return content_dict.get(pathname, None)
+
+# 刷新jwt令牌 45分钟一次
+@app.callback(
+    Output('jwt-cookies', 'value'),
+    Input('jwt-interval', 'n_intervals')
+)
+def refresh_access_token(n_intervals):
+    if current_user.is_authenticated:
+        refresh_token = auth.return_user_information(username=current_user.username).refresh_toekn
+        
+        try:
+            decode_token(encoded_token=refresh_token)
+            return create_access_token(identity=current_user.username)
+        except Exception:
+            return dash.no_update
+
+    else:
+        return dash.no_update

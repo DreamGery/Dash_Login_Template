@@ -29,7 +29,10 @@ server.config["JWT_SECRET_KEY"] = "DreamGery"
 server.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=7)
 
 # 配置jwt有效期
-server.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(hours=1)
+server.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(hours=1)
+
+# 配置refresh token有效期
+server.config['JWT_REFRESH_TOKEN_EXPIRES'] = datetime.timedelta(days=7)
 
 # 配置JWT令牌存储在cookies
 server.config['JWT_TOKEN_LOCATION'] = ['cookies']
