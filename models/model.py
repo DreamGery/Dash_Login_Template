@@ -135,11 +135,11 @@ auth = Auth()
 if __name__ == '__main__':
 
     auth.add_user(
-        username='test',
-        password=str2md5('test'),
+        username='DreamGery',
+        password=str2md5('DreamGery'),
         user_role='超级管理员',
         user_permission={
-            'permission': []
+            'permission': ['用户管理']
         }
     )
 

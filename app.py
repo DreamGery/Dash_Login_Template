@@ -111,7 +111,7 @@ def router(pathname, trigger):
 )
 def get_new_access_token(trigger):
     if current_user.is_authenticated and trigger == 'load':
-        refresh_token = auth.return_user_information(username=current_user.username).refresh_toekn
+        refresh_token = auth.return_user_information(username=current_user.username).refresh_token
         try:
             decode_token(encoded_token=refresh_token)
             return create_access_token(identity=current_user.username)

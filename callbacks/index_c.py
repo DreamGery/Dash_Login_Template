@@ -119,6 +119,7 @@ def logout_callback(clickedKey):
     else:
         return dash.no_update
 
+@jwt_required()
 @app.callback(
     Output('content-container', 'children'),
     Input('url', 'pathname')
@@ -142,12 +143,14 @@ def render_content(pathname):
 
 # 刷新jwt令牌 45分钟一次
 @app.callback(
-    Output('jwt-cookies', 'value'),
-    Input('jwt-interval', 'n_intervals')
+    Output('jwt-cookies', 'value', allow_duplicate=True),
+    Input('jwt-interval', 'n_intervals'),
+    prevent_initial_call=True
 )
 def refresh_access_token(n_intervals):
-    if current_user.is_authenticated:
-        refresh_token = auth.return_user_information(username=current_user.username).refresh_toekn
+    print(n_intervals)
+    if current_user.is_authenticated and n_intervals:
+        refresh_token = auth.return_user_information(username=current_user.username).refresh_token
         
         try:
             decode_token(encoded_token=refresh_token)

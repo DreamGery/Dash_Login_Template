@@ -27,7 +27,7 @@ def tab_animation(pathname):
         Output('form-item-password', 'validateStatus'),
         Output('form-item-password', 'help'),
         Output('router-redirect-container', 'children', allow_duplicate=True),
-        Output('jwt-cookies', 'value')
+        Output('jwt-cookies', 'value', allow_duplicate=True)
     ],
     Input('login-submit', 'nClicks'),
     [
