@@ -148,7 +148,6 @@ def render_content(pathname):
     prevent_initial_call=True
 )
 def refresh_access_token(n_intervals):
-    print(n_intervals)
     if current_user.is_authenticated and n_intervals:
         refresh_token = auth.return_user_information(username=current_user.username).refresh_token
         

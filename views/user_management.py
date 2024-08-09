@@ -68,7 +68,8 @@ def render_user_management_content(user_data=Auth().return_user_table()):
                             'width': '100%'
                         }
                     ),
-                    html.Div(id='user-information-message-container')
+                    html.Div(id='user-information-message-container'),
+                    html.Div(id='modal-container')
                 ],
                 hoverable=True,
                 headStyle={

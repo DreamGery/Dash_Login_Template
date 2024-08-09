@@ -11,13 +11,30 @@ class RouterConfig:
     VALID_PATHNAME = ["/", "/login", "/user-management"]
 
     PATHNAME_PERMISSION = {
-        '/user-management': '用户管理'
+        '/user-management': '用户管理',
+        '/dashboard': '概率',
+        '/user-information': '个人信息'
     }
+
+    NORMAL_PERMISSION = ['概览']
+
+    DEFAULT_PERMISSION = ['个人信息']
+
+    PERMISSION_ONLY_ADMINISTRATOR = ['用户管理']
 
 
 class MenuConfig:
     def __init__(self):
         self.menu_items = {
+            '概览': {
+                "component": "Item", 
+                "props": {
+                    "key": "概览",
+                    "title": "概览",
+                    "icon": "antd-dashboard",
+                    "href": "/dashboard",
+                }
+            },
             '用户管理': {
                 "component": "Item", 
                 "props": {
@@ -25,6 +42,15 @@ class MenuConfig:
                     "title": "用户管理",
                     "icon": "antd-team",
                     "href": "/user-management",
+                }
+            },
+            '个人信息': {
+                "component": "Item", 
+                "props": {
+                    "key": "个人信息",
+                    "title": "个人信息",
+                    "icon": "antd-user",
+                    "href": "/user-information",
                 }
             }
         }

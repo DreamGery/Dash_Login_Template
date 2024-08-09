@@ -2,7 +2,9 @@ import dash
 import feffery_antd_components as fac
 from flask_login import current_user
 from dash.dependencies import Input, Output, State
+from dash.exceptions import PreventUpdate
 
+from config import RouterConfig
 from models.model import auth
 from server import app
 
@@ -43,5 +45,69 @@ def delete_user(confirmCounts, selectedRows):
     else:
         return [dash.no_update, None]
         
+@app.callback(
+    Output('modal-container', 'children', allow_duplicate=True),
+    Input('add-user-button', 'nClicks'),
+    prevent_initial_call=True
+)
+def add_user_modal(nClicks):
+    if nClicks:
+        return fac.AntdModal(
+            [
+                fac.AntdForm(
+                    [
+                        fac.AntdFormItem(fac.AntdInput(id='add-username-input'), label='用户名'),
+                        fac.AntdFormItem(fac.AntdInput(value='DreamGery', disabled=True, id='add-user-password'), label='默认密码'),
+                        fac.AntdFormItem(
+                            fac.AntdSelect(
+                                id='user-role-select',
+                                options=['普通用户', '超级管理员']
+                            ),
+                            label='用户角色'
+                        ),
+                        fac.AntdFormItem(
+                            fac.AntdSelect(
+                                id='add-user-permission-select',
+                                options=RouterConfig.NORMAL_PERMISSION,
+                                mode='multiple'
+                            ),
+                            label='用户权限',
+                            tooltip='普通用户默认有个人信息权限, 超级管理员默认有用户管理权限'
+                        )
+                    ],
+                    id='add-user-form',
+                    enableBatchControl=True
+                )
+            ],
+            renderFooter=True,
+            visible=True,
+            id='add-user-modal',
+            title='增加用户'
+        )
+    else:
+        raise PreventUpdate
 
+@app.callback(
+    [
+        Output('user-table', 'data', allow_duplicate=True),
+        Output('user-information-message-container', 'children', allow_duplicate=True)
+    ],
+    Input('add-user-modal', 'okCounts'),
+    [
+        State('add-user-form', 'values')
+    ],
+    prevent_initial_call=True
+)
+def add_user_function(okCounts, values):
+    if okCounts and values:
+        if len(values) == 5:
+            if auth.add_user(
+                username=values.get('add-username-input'),
+                password=values.get('add-user-password'),
+                user_role=values.get('user-role-select'),
+                user_permission={'permission': values.get('add-user-permission-select')}
+            ):
+                return 
 
+    else:
+        raise PreventUpdate
