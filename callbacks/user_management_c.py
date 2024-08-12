@@ -20,7 +20,7 @@ from server import app
 )
 def delete_user(confirmCounts, selectedRows):
     # 避免直接访问
-    if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permisssion'):
+    if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permission'):
         return dash.no_update
 
     if confirmCounts:
@@ -99,9 +99,8 @@ def add_user_modal(nClicks):
     prevent_initial_call=True
 )
 def add_user_function(okCounts, values):
-
     # 避免直接访问
-    if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permisssion'):
+    if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permission'):
         return dash.no_update
 
     if okCounts and values:
@@ -210,7 +209,7 @@ def update_user_modal(nClicks, selectedRows):
 )
 def update_user_function(okCounts, values, selectedRows):
     # 避免直接访问
-    if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permisssion'):
+    if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permission'):
         return dash.no_update
     
     if okCounts and values and selectedRows:
