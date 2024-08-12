@@ -136,7 +136,7 @@ def render_content(pathname):
     ):
         return render_access_content()
     content_dict = {
-        '/user-management': render_user_management_content()
+        '/user-management': render_user_management_content(user_data=auth.return_user_table())
     }
 
     return content_dict.get(pathname, None)

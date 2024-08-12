@@ -2,10 +2,10 @@ import feffery_antd_components as fac
 
 from dash import html
 
-from models.model import Auth
+from models.model import auth
 from callbacks import user_management_c  # noqa: F401
 
-def render_user_management_content(user_data=Auth().return_user_table()):
+def render_user_management_content(user_data):
     content = fac.AntdCenter(
         [
             fac.AntdCard(
@@ -27,6 +27,7 @@ def render_user_management_content(user_data=Auth().return_user_table()):
                                             id='delete-user-button'
                                         ),
                                         title='确认继续删除',
+                                        description='超级管理员账户会无法删除',
                                         id='popconfirm-delete-user'
                                     ),
                                     fac.AntdButton(

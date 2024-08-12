@@ -7,7 +7,7 @@ from dash.exceptions import PreventUpdate
 from config import RouterConfig
 from models.model import auth
 from server import app
-
+from utils import str2md5
 
 @app.callback(
     [
@@ -76,7 +76,8 @@ def add_user_modal(nClicks):
                         )
                     ],
                     id='add-user-form',
-                    enableBatchControl=True
+                    enableBatchControl=True,
+                    values={'add-user-password': 'DreamGery'}
                 )
             ],
             renderFooter=True,
@@ -116,7 +117,7 @@ def add_user_function(okCounts, values):
         default_user_permission = ['用户管理', '个人信息'] if values.get('user-role-select') == '超级管理员' else ['个人信息']
         if auth.add_user(
             username=values.get('add-username-input'),
-            password=values.get('add-user-password'),
+            password=str2md5(values.get('add-user-password')),
             user_role=values.get('user-role-select'),
             user_permission={
                 'permission': [
@@ -156,15 +157,14 @@ def update_user_modal(nClicks, selectedRows):
                     [
                         fac.AntdFormItem(
                             fac.AntdSelect(
-                                id='update=user-role-select',
-                                options=['普通用户', '超级管理员'],
-                                value=user_information_data.user_role
+                                id='update-user-role-select',
+                                options=['普通用户', '超级管理员']
                             ),
                             label='用户角色'
                         ),
                         fac.AntdFormItem(
                             fac.AntdCheckbox(
-                                id='reset-password',
+                                id='reset-password'
                             ),
                             label='重置密码'
                         ),
@@ -172,18 +172,22 @@ def update_user_modal(nClicks, selectedRows):
                             fac.AntdSelect(
                                 id='update-user-permission-select',
                                 options=RouterConfig.NORMAL_PERMISSION,
-                                mode='multiple',
-                                value=[
-                                    i for i in user_information_data.user_permission.get('permission') 
-                                    if i != '用户管理' or i != '个人信息'
-                                ]
+                                mode='multiple'
                             ),
                             label='用户权限',
                             tooltip='普通用户默认有个人信息权限, 超级管理员默认有用户管理权限'
                         )
                     ],
                     id='update-user-form',
-                    enableBatchControl=True
+                    enableBatchControl=True,
+                    values={
+                        'update-user-role-select': user_information_data.user_role,
+                        'reset-password': False,
+                        'update-user-permission-select': [
+                            i for i in user_information_data.user_permission.get('permission')
+                            if i != '用户管理' and i != '个人信息'
+                        ]
+                    }
                 )
             ],
             renderFooter=True,

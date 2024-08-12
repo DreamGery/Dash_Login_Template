@@ -134,13 +134,8 @@ auth = Auth()
 # 使用数据库
 if __name__ == '__main__':
 
-    auth.add_user(
-        username='DreamGery',
-        password=str2md5('DreamGery'),
-        user_role='超级管理员',
-        user_permission={
-            'permission': ['用户管理']
-        }
+    print(
+        auth.return_user_table()
     )
 
 
