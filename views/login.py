@@ -16,7 +16,7 @@ def render_login_content() -> Component:
                                 fac.AntdSpace(
                                     [
                                         html.Img(
-                                            src='https://preview.pro.ant.design/logo.svg',
+                                            src='https://fac.feffery.tech/assets/imgs/fac-logo.svg',
                                             style={
                                                 'width': '44px',
                                                 'height': '44px'

@@ -20,7 +20,7 @@ def render_index_content(username, permission) -> Component:
                                             fac.AntdFlex(
                                                 [
                                                     html.Img(
-                                                        src='https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+                                                        src='https://fac.feffery.tech/assets/imgs/fac-logo.svg',
                                                         style={
                                                             'height': '32px',
                                                             'width': '32px'
