@@ -3,13 +3,13 @@ import feffery_utils_components as fuc
 from dash import dcc, html
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
-from flask_login import current_user
 from flask_jwt_extended import create_access_token, decode_token
+from flask_login import current_user
 
 import views
 from config import RouterConfig
-from server import app
 from models.model import auth
+from server import app
 
 app.layout = html.Div(
     [

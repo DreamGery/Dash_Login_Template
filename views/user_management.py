@@ -1,9 +1,9 @@
 import feffery_antd_components as fac
-
 from dash import html
 
-from models.model import auth
 from callbacks import user_management_c  # noqa: F401
+from models.model import auth
+
 
 def render_user_management_content(user_data):
     content = fac.AntdCenter(

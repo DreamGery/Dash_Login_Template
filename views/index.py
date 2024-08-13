@@ -1,10 +1,11 @@
 import feffery_antd_components as fac
 import feffery_utils_components as fuc
-from dash import html, dcc
+from dash import dcc, html
 from dash.dependencies import Component
 
 from callbacks import index_c  # noqa: F401
 from config import MenuConfig
+
 
 def render_index_content(username, permission) -> Component:
     content = html.Div(

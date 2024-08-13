@@ -1,8 +1,9 @@
 import dash
 import feffery_antd_components as fac
-
 from dash import html
+
 from callbacks import personal_informational_c
+
 
 def render_user_page_content(user_information):
 

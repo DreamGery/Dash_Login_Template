@@ -1,11 +1,14 @@
 import dash
 import feffery_antd_components as fac
-
 from dash.dependencies import Input, Output, State
+from flask_jwt_extended import jwt_required
 from flask_login import current_user
-from server import app
-from models.model import auth
 
+from models.model import auth
+from server import app
+
+
+@jwt_required()
 @app.callback(
     [
         Output('old-password', 'value'),

@@ -1,14 +1,17 @@
 import dash
 import feffery_antd_components as fac
-from flask_login import current_user
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
+from flask_jwt_extended import jwt_required
+from flask_login import current_user
 
 from config import RouterConfig
 from models.model import auth
 from server import app
 from utils import str2md5
 
+
+@jwt_required()
 @app.callback(
     [
         Output('user-table', 'data'),
@@ -95,6 +98,8 @@ def add_user_modal(nClicks):
     else:
         raise PreventUpdate
 
+
+@jwt_required()
 @app.callback(
     [
         Output('user-table', 'data', allow_duplicate=True),
@@ -206,6 +211,7 @@ def update_user_modal(nClicks, selectedRows):
         raise PreventUpdate
     
 
+@jwt_required()
 @app.callback(
     [
         Output('user-table', 'data', allow_duplicate=True),
