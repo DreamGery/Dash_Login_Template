@@ -2,14 +2,15 @@ import dash
 import feffery_antd_components as fac
 from dash import dcc
 from dash.dependencies import Input, Output
-from flask_jwt_extended import jwt_required, create_access_token, decode_token
+from flask_jwt_extended import create_access_token, decode_token, jwt_required
 from flask_login import current_user, logout_user
 
 from config import RouterConfig
+from models.model import auth
 from server import app
 from views.forbidden_access import render_access_content
+from views.personal_information import render_user_page_content
 from views.user_management import render_user_management_content
-from models.model import auth
 
 
 # 控制header的样式
@@ -136,7 +137,8 @@ def render_content(pathname):
     ):
         return render_access_content()
     content_dict = {
-        '/user-management': render_user_management_content(user_data=auth.return_user_table())
+        '/user-management': render_user_management_content(user_data=auth.return_user_table()),
+        '/user-information': render_user_page_content(user_information=auth.return_user_information(username=current_user.username))
     }
 
     return content_dict.get(pathname, None)

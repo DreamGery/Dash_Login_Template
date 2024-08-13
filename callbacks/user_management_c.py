@@ -57,7 +57,14 @@ def add_user_modal(nClicks):
                 fac.AntdForm(
                     [
                         fac.AntdFormItem(fac.AntdInput(id='add-username-input'), label='用户名'),
-                        fac.AntdFormItem(fac.AntdInput(value='DreamGery', disabled=True, id='add-user-password'), label='默认密码'),
+                        fac.AntdFormItem(
+                            fac.AntdInput(
+                                value='DreamGery', 
+                                disabled=True, 
+                                id='add-user-password',
+                            ), 
+                            label='默认密码'
+                        ),
                         fac.AntdFormItem(
                             fac.AntdSelect(
                                 id='user-role-select',
@@ -77,7 +84,7 @@ def add_user_modal(nClicks):
                     ],
                     id='add-user-form',
                     enableBatchControl=True,
-                    values={'add-user-password': 'DreamGery'}
+                    values={'add-user-password': str2md5('DreamGery')}
                 )
             ],
             renderFooter=True,
@@ -110,7 +117,7 @@ def add_user_function(okCounts, values):
                 dash.no_update,
                 fac.AntdMessage(
                     content='添加失败, 没有完整填写用户信息',
-                    type='wrong'
+                    type='warning'
                 )
             ]
         
@@ -132,7 +139,7 @@ def add_user_function(okCounts, values):
         else:
             return [
                 dash.no_update,
-                fac.AntdMessage(content='添加失败', type='wrong')
+                fac.AntdMessage(content='添加失败', type='warning')
             ]
 
     else:
@@ -227,7 +234,7 @@ def update_user_function(okCounts, values, selectedRows):
                 'user_permission': {
                     'permission': [*values.get('update-user-permission-select'), *default_user_permission]
                 },
-                'password': 'DreamGery'
+                'password': str2md5('DreamGery')
             } if values.get('reset-password') else {
                 'user_role': values.get('update-user-role-select'),
                 'user_permission': {
@@ -242,7 +249,7 @@ def update_user_function(okCounts, values, selectedRows):
         else:
             return [
                 dash.no_update,
-                fac.AntdMessage(content='修改失败', type='wrong')
+                fac.AntdMessage(content='修改失败', type='warning')
             ]
     else:
         raise PreventUpdate

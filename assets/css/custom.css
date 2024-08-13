@@ -26,3 +26,10 @@
   content: '';
 }
 
+.ant-tabs-content.ant-tabs-content-left.ant-tabs-content-animated {
+  height: 100%;
+}
+
+.ant-tabs-tabpane.ant-tabs-tabpane-active {
+  height: 100%;
+}
