@@ -10,3 +10,8 @@ dash登录模版，目前只搞了个简单的登录，后续正在开发中，�
 
 ## PS
 本人python纯自学, 所以代码写得很烂, 别骂孩子
+
+
+## 预览图片
+![输入图片说明](demo_picture/Dingtalk_20240814101238.jpg)
+![输入图片说明](demo_picture/Dingtalk_20240814101557.jpg)
