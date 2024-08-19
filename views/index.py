@@ -148,9 +148,9 @@ def render_index_content(username, permission) -> Component:
                                         fac.AntdContent(
                                             id='content-container',
                                             style={
-                                                'padding': '10px 10px 0px 10px',
+                                                'padding': '25px 20px 0px 20px',
                                             }
-                                        )
+                                        ),
                                     ]
                                 ),
                             ],

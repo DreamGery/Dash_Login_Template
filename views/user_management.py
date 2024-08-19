@@ -6,6 +6,7 @@ from models.model import auth
 
 
 def render_user_management_content(user_data):
+    
     content = fac.AntdCenter(
         [
             fac.AntdCard(
