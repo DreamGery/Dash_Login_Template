@@ -8,7 +8,7 @@ class PathConfig:
 
 class RouterConfig:
     # 合法pathname列表
-    VALID_PATHNAME = ["/", "/login", "/user-management", "/user-information"]
+    VALID_PATHNAME = ["/", "/login", "/user-management", "/user-information", "/dashboard"]
 
     PATHNAME_PERMISSION = {
         '/user-management': '用户管理',

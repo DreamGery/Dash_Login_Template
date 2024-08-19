@@ -146,14 +146,19 @@ def render_index_content(username, permission) -> Component:
                                 fac.AntdLayout(
                                     [
                                         fac.AntdContent(
-                                            id='content-container'
+                                            id='content-container',
+                                            style={
+                                                'padding': '10px 10px 0px 10px',
+                                            }
                                         )
                                     ]
                                 ),
                             ],
-                            style={"height": "100vh", "width": "100vw"},
                         ),
-                    ]
+                    ],
+                    style={
+                        'minHeight': '100%'
+                    }
                 ),
                 id='config'
             ),
@@ -166,7 +171,10 @@ def render_index_content(username, permission) -> Component:
                 id='jwt-interval',
                 interval=1000 * 60 * 45
             )
-        ]
+        ],
+        style={
+            "height": '100vh'
+        }
     )
 
     return content
