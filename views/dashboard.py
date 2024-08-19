@@ -97,9 +97,9 @@ def render_dashboard_content():
                     xs=15,
                     sm=15,
                     md=10,
-                    lg=5,
-                    xl=5,
-                    xxl=5
+                    lg=6,
+                    xl=6,
+                    xxl=6
                 ),
                 fac.AntdCol(
                     fac.AntdCard(
@@ -172,9 +172,9 @@ def render_dashboard_content():
                     xs=15,
                     sm=15,
                     md=10,
-                    lg=5,
-                    xl=5,
-                    xxl=5
+                    lg=6,
+                    xl=6,
+                    xxl=6
                 ),
                 fac.AntdCol(
                     fac.AntdCard(
@@ -241,9 +241,9 @@ def render_dashboard_content():
                     xs=15,
                     sm=15,
                     md=10,
-                    lg=5,
-                    xl=5,
-                    xxl=5
+                    lg=6,
+                    xl=6,
+                    xxl=6
                 ),
                 fac.AntdCol(
                     fac.AntdCard(
@@ -319,9 +319,9 @@ def render_dashboard_content():
                     xs=15,
                     sm=15,
                     md=10,
-                    lg=5,
-                    xl=5,
-                    xxl=5
+                    lg=6,
+                    xl=6,
+                    xxl=6
                 ),
             ],
             style={
@@ -329,7 +329,7 @@ def render_dashboard_content():
                 'marginBottom': '50px'
             },
             justify='space-between',
-            gutter=[0, 15]
+            gutter=[15, 15]
         ),
         fac.AntdRow(
             [
@@ -418,7 +418,9 @@ def render_dashboard_content():
             ],
             style={
                 'width': '100%'
-            }
+            },
+            gutter=[15, 15],
+            justify='space-between'
         )
     ]
 

@@ -139,7 +139,7 @@ if __name__ == '__main__':
         user_role='超级管理员',
         password=str2md5('DreamGery'),
         user_permission={
-            'permission': ['用户管理', '个人信息', '概览']
+            'permission': ['概览', '个人信息', '用户管理']
         }
     )
 

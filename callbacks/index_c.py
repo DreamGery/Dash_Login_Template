@@ -137,6 +137,7 @@ def render_content(pathname):
         auth.return_user_information(current_user.username).user_permission.get('permission')
     ):
         return render_access_content()
+    
     content_dict = {
         '/user-management': render_user_management_content(user_data=auth.return_user_table()),
         '/user-information': render_user_page_content(user_information=auth.return_user_information(username=current_user.username)),
