@@ -6,6 +6,7 @@ import pandas as pd
 
 from dash import html
 from feffery_antd_components.utils import df2table
+from callbacks import dashboard_c
 
 def render_dashboard_content():
     
@@ -14,7 +15,7 @@ def render_dashboard_content():
             'date': pd.date_range('2024-07-1', '2024-07-15'),
             'value': [random.randint(4000, 6000) for i in range(15)]
         }
-    )
+    ).assign(date=lambda d: d['date'].dt.date)
 
     table_data = pd.DataFrame(
         {
@@ -350,7 +351,13 @@ def render_dashboard_content():
                                                             smooth=True,
                                                             yField='value',
                                                             xField='date',
-                                                            autoFit=True
+                                                            autoFit=True,
+                                                            areaStyle={
+                                                                'fill': 'l(270) 0:#ffffff 0.5:#845ec2 1:#dccdf4',
+                                                            },
+                                                            line={
+                                                                'color': '#845ec2'
+                                                            }
                                                         ),
                                                         xs=24,
                                                         sm=24,
@@ -401,7 +408,22 @@ def render_dashboard_content():
                                     'width': '100%'
                                 },
                                 size='large',
-                                tabBarRightExtraContent=fac.AntdDateRangePicker(value=['2024-07-01', '2024-07-15']),
+                                tabBarRightExtraContent=fac.AntdFlex(
+                                    [
+                                        fac.AntdSegmented(
+                                            id='date-range-segmented',
+                                            options=[
+                                                {
+                                                    'label': i,
+                                                    'value': i
+                                                } for i in ['本日', '本周', '本月', '本年']
+                                            ],
+                                            defaultValue='本日'
+                                        ),
+                                        fac.AntdDateRangePicker(id='date-range-picker')
+                                    ],
+                                    gap='small'
+                                ),
                                 tabPaneAnimated=True
                             ),
                             headStyle={'display': 'none'},
