@@ -55,6 +55,7 @@ class MenuConfig:
             }
         }
 
+
     def return_menu_items(self, permission: list):
         '''
         根据用户权限返回对应的菜单项
