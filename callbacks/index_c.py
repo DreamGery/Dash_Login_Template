@@ -53,6 +53,7 @@ app.clientside_callback(
     ]
 )
 
+
 # 监听浏览器断点, 来控制menu的缩略形态
 app.clientside_callback(
     '''
@@ -74,6 +75,7 @@ app.clientside_callback(
     Input('breakpoint-listener', 'responsive')
 )
 
+
 # 是否切换暗黑模式
 app.clientside_callback(
     '''
@@ -90,18 +92,20 @@ app.clientside_callback(
     Input('mode', 'checked')
 )
 
+
 app.clientside_callback(
-    '''
-    (pathname) => {
+    '''(pathname) => {
         let menuItem = {
-            '/user-management': '用户管理'
+            '/user-management': '用户管理',
+            '/dashboard': '概览',
+            '/user-information': '个人信息'
         }
         return menuItem[pathname]
-    }
-    ''',
+    }''',
     Output('menu', 'currentKey'),
     Input('url', 'pathname')
 )
+
 
 @app.callback(
     [
@@ -120,6 +124,7 @@ def logout_callback(clickedKey):
         ]
     else:
         return dash.no_update
+
 
 @jwt_required()
 @app.callback(
@@ -145,6 +150,7 @@ def render_content(pathname):
     }
 
     return content_dict.get(pathname, None)
+
 
 # 刷新jwt令牌 45分钟一次
 @app.callback(
