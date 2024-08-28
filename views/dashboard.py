@@ -414,10 +414,10 @@ def render_dashboard_content():
                                     html.Div(id="drill-chart-container"),
                                 ],
                                 vertical=True,
-                                style={"width": "100%"},
+                                style={"width": "100%", 'height': '100%'},
                             )
                         ],
-                        style={"width": "100%"},
+                        style={"width": "100%", 'height': '560px'},
                         title="销售额",
                     ),
                     xs=24,
@@ -425,7 +425,7 @@ def render_dashboard_content():
                     md=24,
                     lg=14,
                     xl=14,
-                    xxl=14,
+                    xxl=14
                 ),
                 fac.AntdCol(
                     [
@@ -475,7 +475,7 @@ def render_dashboard_content():
                                     description='销售情况良好, 有望达到目标',
                                 )
                             ],
-                            style={"width": "100%"},
+                            style={"width": "100%", 'height': '560px'},
                             title="销售目标预测达成情况",
                         ),
                     ],
