@@ -128,15 +128,18 @@ def render_index_content(username, permission) -> Component:
                         fac.AntdLayout(
                             [
                                 fac.AntdSider(
-                                    fac.AntdMenu(
-                                        defaultSelectedKey="图标antd-home",
-                                        menuItems=MenuConfig().return_menu_items(permission=permission),
-                                        mode="inline",
-                                        style={
-                                            'overflow': 'auto',
-                                            'maxHeight': '80%'
-                                        },
-                                        id='menu'
+                                    fac.AntdAffix(
+                                        fac.AntdMenu(
+                                            defaultSelectedKey="图标antd-home",
+                                            menuItems=MenuConfig().return_menu_items(permission=permission),
+                                            mode="inline",
+                                            style={
+                                                'overflow': 'auto',
+                                                'maxHeight': '100%'
+                                            },
+                                            id='menu'
+                                        ),
+                                        offsetTop=64
                                     ),
                                     collapsible=True,
                                     theme="light",
