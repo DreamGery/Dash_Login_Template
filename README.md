@@ -16,3 +16,4 @@ dash登录模版，目前只搞了个简单的登录，后续正在开发中，�
 ## 预览图片
 ![输入图片说明](demo_picture/1.jpg)
 ![输入图片说明](demo_picture/2.jpg)
+![输入图片说明](demo_picture/3.jpg)
