@@ -1,3 +1,4 @@
+import time
 import dash
 import feffery_utils_components as fuc
 from dash import dcc, html
@@ -49,6 +50,7 @@ app.layout = html.Div(
     prevent_initial_call=True
 )
 def router(pathname, trigger):
+
     # 检验pathname合法性
     if pathname not in RouterConfig.VALID_PATHNAME:
         # 渲染404状态页
