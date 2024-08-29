@@ -9,6 +9,7 @@ import numpy as np
 from itertools import product
 from dash import set_props
 from dash.dependencies import Input, Output, State
+from flask_jwt_extended import jwt_required
 from server import app
 
 
@@ -57,6 +58,7 @@ def date_range_function(value):
             ]
         
 
+@jwt_required()
 @app.callback(
     [
         Output("drill-level-indicator-container", "children"),
@@ -167,6 +169,7 @@ def update_drill_views(data):
         ]
 
 
+@jwt_required()
 @app.callback(
     Input({"type": "drill-chart", "level": "根节点"}, "recentlySectorClickRecord"),
     State("drill-level-state", "data"),
@@ -187,6 +190,7 @@ def handle_root_level_event(recentlySectorClickRecord, data):
         )
 
 
+@jwt_required()
 @app.callback(
     Input({"type": "drill-chart", "level": "业务地区"}, "recentlyColumnClickRecord"),
     State("drill-level-state", "data"),
@@ -208,6 +212,7 @@ def handle_area_level_event(recentlyColumnClickRecord, data):
         )
 
 
+@jwt_required()
 @app.callback(
     Input("drill-level-indicator", "clickedItem"),
     [State("drill-level-state", "data"), State("drill-level-indicator", "items")],

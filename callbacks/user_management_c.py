@@ -87,7 +87,7 @@ def add_user_modal(nClicks):
                     ],
                     id='add-user-form',
                     enableBatchControl=True,
-                    values={'add-user-password': str2md5('DreamGery')}
+                    values={'add-user-password': 'DreamGery'}
                 )
             ],
             renderFooter=True,
@@ -178,7 +178,8 @@ def update_user_modal(nClicks, selectedRows):
                             fac.AntdCheckbox(
                                 id='reset-password'
                             ),
-                            label='重置密码'
+                            label='重置密码',
+                            tooltip='密码默认为"DreamGery"'
                         ),
                         fac.AntdFormItem(
                             fac.AntdSelect(
