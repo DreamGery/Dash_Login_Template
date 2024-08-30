@@ -34,7 +34,7 @@ app.layout = html.Div(
         # 注入cookies组件
         fuc.FefferyCookie(
             id='jwt-cookies',
-            cookieKey='dash_access_token'
+            cookieKey='access_token_cookie'
         ),
     ]
 )

@@ -10,6 +10,8 @@ from itertools import product
 from dash import set_props
 from dash.dependencies import Input, Output, State
 from flask_jwt_extended import jwt_required
+from flask_login import current_user
+from models.model import is_authorized
 from server import app
 
 
@@ -28,6 +30,8 @@ demo_data["销售额(万)"] = np.round(np.random.uniform(10, 500, demo_data.shap
     Output('date-range-picker', 'value'),
     Input('date-range-segmented', 'value')
 )
+@is_authorized(user=current_user, view='概览')
+@jwt_required()
 def date_range_function(value):
     if value:
         today_date = datetime.datetime.today().date()
@@ -58,7 +62,6 @@ def date_range_function(value):
             ]
         
 
-@jwt_required()
 @app.callback(
     [
         Output("drill-level-indicator-container", "children"),
@@ -67,6 +70,7 @@ def date_range_function(value):
     ],
     Input("drill-level-state", "data"),
 )
+@jwt_required()
 def update_drill_views(data):
     # 根据当前level参数，构造图表数据
     if data["current"] == "根节点":
@@ -169,11 +173,11 @@ def update_drill_views(data):
         ]
 
 
-@jwt_required()
 @app.callback(
     Input({"type": "drill-chart", "level": "根节点"}, "recentlySectorClickRecord"),
     State("drill-level-state", "data"),
 )
+@jwt_required()
 def handle_root_level_event(recentlySectorClickRecord, data):
     if recentlySectorClickRecord["data"]:
         set_props(

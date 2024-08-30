@@ -11,7 +11,7 @@ from server import app
 from utils import str2md5
 
 
-@jwt_required()
+
 @app.callback(
     [
         Output('user-table', 'data'),
@@ -21,6 +21,7 @@ from utils import str2md5
     State('user-table', 'selectedRows'),
     prevent_initial_call=True
 )
+@jwt_required()
 def delete_user(confirmCounts, selectedRows):
     # 避免直接访问
     if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permission'):
@@ -47,12 +48,14 @@ def delete_user(confirmCounts, selectedRows):
             return [dash.no_update, fac.AntdMessage(content='未选择需要删除的用户', type='warning')]
     else:
         return [dash.no_update, None]
-        
+
+
 @app.callback(
     Output('modal-container', 'children', allow_duplicate=True),
     Input('add-user-button', 'nClicks'),
     prevent_initial_call=True
 )
+@jwt_required()
 def add_user_modal(nClicks):
     if nClicks:
         return fac.AntdModal(
@@ -99,7 +102,7 @@ def add_user_modal(nClicks):
         raise PreventUpdate
 
 
-@jwt_required()
+
 @app.callback(
     [
         Output('user-table', 'data', allow_duplicate=True),
@@ -111,6 +114,7 @@ def add_user_modal(nClicks):
     ],
     prevent_initial_call=True
 )
+@jwt_required()
 def add_user_function(okCounts, values):
     # 避免直接访问
     if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permission'):
@@ -157,6 +161,7 @@ def add_user_function(okCounts, values):
     State('user-table', 'selectedRows'),
     prevent_initial_call=True
 )
+@jwt_required()
 def update_user_modal(nClicks, selectedRows):
         
     if nClicks and selectedRows:
@@ -212,7 +217,7 @@ def update_user_modal(nClicks, selectedRows):
         raise PreventUpdate
     
 
-@jwt_required()
+
 @app.callback(
     [
         Output('user-table', 'data', allow_duplicate=True),
@@ -225,6 +230,7 @@ def update_user_modal(nClicks, selectedRows):
     ],
     prevent_initial_call=True
 )
+@jwt_required()
 def update_user_function(okCounts, values, selectedRows):
     # 避免直接访问
     if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permission'):

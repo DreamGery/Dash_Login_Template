@@ -131,17 +131,40 @@ class Auth:
 
 auth = Auth()        
 
-# 使用数据库
+
+def is_authorized(user, view: str):
+    '''
+    参数说明:
+        user: 登录的用户
+        view: 判断用户是否有权限访问该页面(接口)
+    '''
+    def wrapper1(func):
+        def wrapper2(*args, **kwargs):
+            permission = auth.return_user_information(username=user.username).user_permission
+            if view in permission['permission']:
+                return func(*args, **kwargs)
+            else:
+                return {'status': 'wrong', 'message': '无权访问'}
+        return wrapper2
+    return wrapper1
+
+
 if __name__ == '__main__':
 
-    auth.add_user(
-        username='DreamGery',
-        user_role='超级管理员',
-        password=str2md5('DreamGery'),
-        user_permission={
-            'permission': ['概览', '个人信息', '用户管理']
-        }
-    )
+    # auth.add_user(
+    #     username='DreamGery',
+    #     user_role='超级管理员',
+    #     password=str2md5('DreamGery'),
+    #     user_permission={
+    #         'permission': ['概览', '个人信息', '用户管理']
+    #     }
+    # )
+
+    @is_authorized(user_id='DreamGery', view='nmb')
+    def test():
+        return None
+    
+    print(test())
 
 
     

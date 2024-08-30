@@ -37,8 +37,8 @@ server.config['JWT_REFRESH_TOKEN_EXPIRES'] = datetime.timedelta(days=7)
 # 配置JWT令牌存储在cookies
 server.config['JWT_TOKEN_LOCATION'] = ['cookies']
 
-# 设置cookies名称
-server.config['JWT_COOKIE_NAME'] = 'dash_access_token'
+# 设置关闭CSRF保护功能
+server.config['JWT_COOKIE_CSRF_PROTECT'] = False
 
 # 绑定纳入鉴权范围的flask实例
 login_manager.init_app(server)
