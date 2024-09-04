@@ -6,7 +6,7 @@ from flask_jwt_extended import jwt_required
 from flask_login import current_user
 
 from config import RouterConfig
-from models.model import auth
+from models.model import auth, is_authorized
 from server import app
 from utils import str2md5
 
@@ -21,6 +21,7 @@ from utils import str2md5
     State('user-table', 'selectedRows'),
     prevent_initial_call=True
 )
+@is_authorized(user=current_user, view='用户管理')
 @jwt_required()
 def delete_user(confirmCounts, selectedRows):
     # 避免直接访问
@@ -55,6 +56,7 @@ def delete_user(confirmCounts, selectedRows):
     Input('add-user-button', 'nClicks'),
     prevent_initial_call=True
 )
+@is_authorized(user=current_user, view='用户管理')
 @jwt_required()
 def add_user_modal(nClicks):
     if nClicks:
@@ -114,6 +116,7 @@ def add_user_modal(nClicks):
     ],
     prevent_initial_call=True
 )
+@is_authorized(user=current_user, view='用户管理')
 @jwt_required()
 def add_user_function(okCounts, values):
     # 避免直接访问
@@ -161,6 +164,7 @@ def add_user_function(okCounts, values):
     State('user-table', 'selectedRows'),
     prevent_initial_call=True
 )
+@is_authorized(user=current_user, view='用户管理')
 @jwt_required()
 def update_user_modal(nClicks, selectedRows):
         
@@ -230,11 +234,12 @@ def update_user_modal(nClicks, selectedRows):
     ],
     prevent_initial_call=True
 )
+@is_authorized(user=current_user, view='用户管理')
 @jwt_required()
 def update_user_function(okCounts, values, selectedRows):
     # 避免直接访问
-    if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permission'):
-        return dash.no_update
+    # if '用户管理' not in auth.return_user_information(current_user.username).user_permission.get('permission'):
+    #     return dash.no_update
     
     if okCounts and values and selectedRows:
         user_name = selectedRows[0].get('username')

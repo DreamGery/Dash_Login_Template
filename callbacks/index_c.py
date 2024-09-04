@@ -126,11 +126,12 @@ def logout_callback(clickedKey):
         return dash.no_update
 
 
-@jwt_required()
+
 @app.callback(
     Output('content-container', 'children'),
     Input('url', 'pathname')
 )
+@jwt_required()
 def render_content(pathname):
     if pathname == '/':
         return fac.AntdNotification(

@@ -1,19 +1,19 @@
 import calendar
 import datetime
-import dash
-import feffery_antd_components as fac
-import feffery_antd_charts as fact
-import pandas as pd
-import numpy as np
-
 from itertools import product
+
+import dash
+import feffery_antd_charts as fact
+import feffery_antd_components as fac
+import numpy as np
+import pandas as pd
 from dash import set_props
 from dash.dependencies import Input, Output, State
 from flask_jwt_extended import jwt_required
 from flask_login import current_user
+
 from models.model import is_authorized
 from server import app
-
 
 demo_data = pd.DataFrame(
     product(
@@ -70,6 +70,7 @@ def date_range_function(value):
     ],
     Input("drill-level-state", "data"),
 )
+@is_authorized(user=current_user, view='概览')
 @jwt_required()
 def update_drill_views(data):
     # 根据当前level参数，构造图表数据
@@ -177,6 +178,7 @@ def update_drill_views(data):
     Input({"type": "drill-chart", "level": "根节点"}, "recentlySectorClickRecord"),
     State("drill-level-state", "data"),
 )
+@is_authorized(user=current_user, view='概览')
 @jwt_required()
 def handle_root_level_event(recentlySectorClickRecord, data):
     if recentlySectorClickRecord["data"]:
@@ -194,11 +196,13 @@ def handle_root_level_event(recentlySectorClickRecord, data):
         )
 
 
-@jwt_required()
+
 @app.callback(
     Input({"type": "drill-chart", "level": "业务地区"}, "recentlyColumnClickRecord"),
     State("drill-level-state", "data"),
 )
+@is_authorized(user=current_user, view='概览')
+@jwt_required()
 def handle_area_level_event(recentlyColumnClickRecord, data):
     if recentlyColumnClickRecord["data"]:
         set_props(
@@ -216,11 +220,13 @@ def handle_area_level_event(recentlyColumnClickRecord, data):
         )
 
 
-@jwt_required()
+
 @app.callback(
     Input("drill-level-indicator", "clickedItem"),
     [State("drill-level-state", "data"), State("drill-level-indicator", "items")],
 )
+@is_authorized(user=current_user, view='概览')
+@jwt_required()
 def handle_indicator_click_switch_level(clickedItem, data, items):
     # 计算当前点击层级下标
     items = [item["title"] for item in items]

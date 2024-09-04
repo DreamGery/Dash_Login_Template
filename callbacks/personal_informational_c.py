@@ -4,11 +4,10 @@ from dash.dependencies import Input, Output, State
 from flask_jwt_extended import jwt_required
 from flask_login import current_user
 
-from models.model import auth
+from models.model import auth, is_authorized
 from server import app
 
 
-@jwt_required()
 @app.callback(
     [
         Output('old-password', 'value'),
@@ -23,9 +22,11 @@ from server import app
         State('confirm-new-password', 'md5Value'),
     ]
 )
+@is_authorized(user=current_user, view='个人信息')
+@jwt_required()
 def update_password(nClicks, old_password, new_pass_word, confirm_new_password):
-    if '个人信息' not in auth.return_user_information(current_user.username).user_permission.get('permission'):
-        return dash.no_update
+    # if '个人信息' not in auth.return_user_information(current_user.username).user_permission.get('permission'):
+    #     return dash.no_update
 
     if nClicks:
         if all([old_password, new_pass_word, confirm_new_password]):
