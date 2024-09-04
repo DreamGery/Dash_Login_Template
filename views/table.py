@@ -78,7 +78,12 @@ def render_table_content(table=df):
                                         style={
                                             'paddingRight': '5px'
                                         }
-                                    )
+                                    ),
+                                    placement='left',
+                                    overlayInnerStyle={
+                                        'background': 'rgba(245,245,245, 0.1)',
+                                        'backdropFilter': 'blur(10px)'
+                                    }
                                 )
                             )
                         ],

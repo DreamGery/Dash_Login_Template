@@ -21,7 +21,6 @@ def sortable_columns(currentOrder):
 
 @app.callback(
     [
-        Output('sortable-list', 'items'),
         Output('sortable-list', 'currentOrder')
     ],
     [
@@ -35,20 +34,12 @@ def sortable_columns(currentOrder):
 )
 def select_columns(moveDirection, targetKeys, moveKeys, old_currentOrder: list):
     if not targetKeys:
-        return [[], []]
+        return [[]]
     if moveDirection:
-        items = [
-            {
-                'key': str(i),
-                'content': str(i),
-                'style': {
-                    'width': '100px'
-                }
-            } for i in targetKeys
-        ] if targetKeys else []
+
         new_currendOrder = (
             old_currentOrder + [*moveKeys]
             if moveDirection == 'right' else [new for new in old_currentOrder if new not in moveKeys]
         )
-        return [items, new_currendOrder]
+        return [new_currendOrder]
     return dash.no_update   
