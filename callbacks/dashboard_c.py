@@ -15,6 +15,7 @@ from flask_login import current_user
 from models.model import is_authorized
 from server import app
 
+
 demo_data = pd.DataFrame(
     product(
         ["华北地区", "华南地区", "华东地区", "西南地区", "西北地区", "东北地区"],

@@ -12,6 +12,7 @@ from views.forbidden_access import render_access_content
 from views.personal_information import render_user_page_content
 from views.user_management import render_user_management_content
 from views.dashboard import render_dashboard_content
+from views.table import render_table_content
 
 
 # 控制header的样式
@@ -147,7 +148,8 @@ def render_content(pathname):
     content_dict = {
         '/user-management': render_user_management_content(user_data=auth.return_user_table()),
         '/user-information': render_user_page_content(user_information=auth.return_user_information(username=current_user.username)),
-        '/dashboard': render_dashboard_content()
+        '/dashboard': render_dashboard_content(),
+        '/table': render_table_content()
     }
 
     return content_dict.get(pathname, None)

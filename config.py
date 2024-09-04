@@ -8,15 +8,16 @@ class PathConfig:
 
 class RouterConfig:
     # 合法pathname列表
-    VALID_PATHNAME = ["/", "/login", "/user-management", "/user-information", "/dashboard"]
+    VALID_PATHNAME = ["/", "/login", "/user-management", "/user-information", "/dashboard", "/table"]
 
     PATHNAME_PERMISSION = {
         '/user-management': '用户管理',
         '/dashboard': '概览',
-        '/user-information': '个人信息'
+        '/user-information': '个人信息',
+        '/table': '查询表格'
     }
 
-    NORMAL_PERMISSION = ['概览']
+    NORMAL_PERMISSION = ['概览', '查询表格']
 
     DEFAULT_PERMISSION = ['个人信息']
 
@@ -33,6 +34,15 @@ class MenuConfig:
                     "title": "概览",
                     "icon": "antd-dashboard",
                     "href": "/dashboard",
+                }
+            },
+            '查询表格': {
+                "component": "Item", 
+                "props": {
+                    "key": "查询表格",
+                    "title": "查询表格",
+                    "icon": "antd-table",
+                    "href": "/table",
                 }
             },
             '用户管理': {
