@@ -24,6 +24,7 @@ class User(Base):
     user_role = Column(String(255), nullable=False)
     user_permission = Column(JSON, nullable=False)
     refresh_token = Column(String(255), nullable=True)
+    select_table_columns = Column(JSON, nullable=True, default={'column_sorted': [],'pinned_columns': []})
     
 
 class Auth:
@@ -151,20 +152,20 @@ def is_authorized(user, view: str):
 
 if __name__ == '__main__':
 
-    # auth.add_user(
-    #     username='DreamGery',
-    #     user_role='超级管理员',
-    #     password=str2md5('DreamGery'),
-    #     user_permission={
-    #         'permission': ['概览', '个人信息', '用户管理']
-    #     }
-    # )
+    auth.add_user(
+        username='DreamGery',
+        user_role='超级管理员',
+        password=str2md5('DreamGery'),
+        user_permission={
+            'permission': ['概览', '查询表格', '个人信息', '用户管理']
+        }
+    )
 
-    @is_authorized(user_id='DreamGery', view='nmb')
-    def test():
-        return None
+    # @is_authorized(user_id='DreamGery', view='nmb')
+    # def test():
+    #     return None
     
-    print(test())
+    # print(test())
 
 
     
