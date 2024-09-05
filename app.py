@@ -10,7 +10,7 @@ from flask_login import current_user
 import views
 from config import RouterConfig
 from models.model import auth
-from server import app
+from server import app, server
 
 app.layout = html.Div(
     [
